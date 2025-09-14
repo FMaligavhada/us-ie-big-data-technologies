@@ -50,4 +50,12 @@ def load(session):
             session.execute(batch)
 
     log.info(f"✅ Data loading complete. Inserted {total_records} records.")
+# 👇 ADD THIS PART AT THE BOTTOM 👇
+if __name__ == "__main__":
+    cluster = Cluster(['127.0.0.1'], port=9042)  # Connect to Cassandra container
+    session = cluster.connect()
+    session.set_keyspace("wind_turbine_data")
 
+    load(session)
+
+    print("✅ Data successfully inserted into Cassandra.")
